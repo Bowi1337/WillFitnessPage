@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Will Fitness - free, private fitness tracking</title>
+<meta name="description" content="Will Fitness is a free fitness tracker for meals, weight, and workouts. No ads, no subscriptions, no data selling." />
+
+<!-- Open Graph (Discord, Facebook link previews) -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Will Fitness - free, private fitness tracking" />
+<meta property="og:description" content="No ads, no subscriptions, no data selling. Log meals, weight, and workouts in seconds." />
+<meta property="og:image" content="https://Willfitness.app/og_image.png" />
+
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Will Fitness - free, private fitness tracking" />
+<meta name="twitter:description" content="No ads, no subscriptions, no data selling. Log meals, weight, and workouts in seconds." />
+<meta name="twitter:image"	content="https://Willfitness.app/og_image.png" />
+
+<link rel="icon" href="" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    /*  Mapped from the apps color scheme*/
+    --bg: #17222C;              /* same as background_color */
+    --bg-deep: #1C2A34;         /* same dialog_background */
+    --surface: #273943;         /* same item_list_background */
+    --border: rgba(255,255,255,0.08);
+    --divider: rgba(61,95,110,0.5);  
+
+    --text: #FFFFFF;            /* text_primary */
+    --text-dim: rgba(255,255,255,0.7); /* text_secondary */
+    --text-faint: rgba(255,255,255,0.45);
+
+    --accent: #FF7043;        
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .logo {
+    font-family: 'Space Grotesk', 'Manrope', system-ui, sans-serif;
+}
+
+a { color: inherit; }
+
+img { display: block; max-width: 100%; }
+
+
+/*  Navbar */
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(23,34,44,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+}
+
+.nav-links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+}
+
+.nav-links a.link {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.nav-links a.link:hover { color: var(--text); }
+
+.btn-get {
+    background: var(--accent);
+    padding: 9px 18px;
+    border-radius: 10px;
+    color: #17222C;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.btn-get:hover { background: #ff8259; }
+
+@media (max-width: 680px) {
+    .nav-links .link { display: none; }
+}
+
+/* Hero */
+.hero {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 72px 24px 64px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: clamp(34px, 4.6vw, 50px);
+    line-height: 1.12;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+}
+
+.hero p {
+    color: var(--text-dim);
+    font-size: 17px;
+    line-height: 1.65;
+    max-width: 46ch;
+    margin-bottom: 30px;
+}
+
+.btn-badge {
+    display: inline-block;
+    height: 56px;
+}
+
+.btn-badge img {
+    height: 100%;
+    width: auto;
+    display: block;
+}
+
+.phone-shell {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 14px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Sections */
+.section {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 56px 24px;
+}
+
+.section-title {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+}
+
+.section-subtitle {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin-bottom: 36px;
+}
+
+/*  Screenshots inside a phone shell. */
+.carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.4s ease;
+}
+
+.carousel img {
+    width: 100%;
+    flex-shrink: 0;
+    object-fit: contain;
+    background: var(--bg-deep);
+    border-radius: 18px;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.carousel-dots button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: rgba(255,255,255,0.25);
+    cursor: pointer;
+}
+
+.carousel-dots button.active { background: var(--accent); }
+
+/* Why section. */
+.why {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 8px 24px 64px;
+}
+
+.why-inner {
+    max-width: 620px;
+    border-left: 2px solid var(--divider);
+    padding-left: 28px;
+}
+
+.why h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.why p {
+    color: var(--text-dim);
+    font-size: 15.5px;
+    line-height: 1.75;
+    margin-bottom: 14px;
+}
+
+.why p:last-child { margin-bottom: 0; }
+
+.why-sign {
+    margin-top: 20px;
+    color: var(--text-faint);
+    font-size: 14px;
+}
+
+/*Flagship feature list */
+.flagship {
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+}
+
+.flagship-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.flagship-row.reverse .flagship-text { order: 2; }
+.flagship-row.reverse .flagship-media { order: 1; }
+
+.flagship-text h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+}
+
+.flagship-text p {
+    color: var(--text-dim);
+    font-size: 15.5px;
+    line-height: 1.7;
+    max-width: 42ch;
+}
+
+.flagship-media {
+    display: flex;
+    justify-content: center;
+}
+
+.screenshot-frame {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 10px;
+    box-shadow: 0 20px 48px rgba(0,0,0,0.35);
+    max-width: 240px;
+}
+
+.screenshot-frame img {
+    border-radius: 14px;
+    width: 100%;
+}
+
+.screenshot-placeholder {
+    width: 100%;
+    aspect-ratio: 275 / 600;
+    border-radius: 14px;
+    border: 1px dashed var(--divider);
+    background: var(--bg-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    color: var(--text-faint);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+@media (max-width: 720px) {
+    .flagship-row,
+    .flagship-row.reverse {
+        grid-template-columns: 1fr;
+    }
+    .flagship-row .flagship-text,
+    .flagship-row.reverse .flagship-text { order: 1; }
+    .flagship-row .flagship-media,
+    .flagship-row.reverse .flagship-media { order: 2; }
+    .flagship-text p { max-width: none; }
+}
+
+/* CLOSING CTA */
+.closing {
+    text-align: center;
+    padding: 72px 24px 88px;
+}
+
+.closing h2 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+}
+
+.closing p {
+    color: var(--text-dim);
+    margin-bottom: 28px;
+}
+
+/* FOOTER */
+footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 20px;
+    color: var(--text-dim);
+    font-size: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 18px;
+    text-align: center;
+}
+
+footer a {
+    color: var(--text-dim);
+    text-decoration: none;
+}
+
+footer a:hover { color: var(--text); }
+
+footer .sep { opacity: 0.4; }
+
+@media (max-width: 780px) {
+    .hero {
+        grid-template-columns: 1fr;
+        padding-top: 48px;
+        text-align: left;
+    }
+    .hero p { max-width: none; }
+    .phone-shell { order: -1; max-width: 260px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <div class="logo">Will Fitness</div>
+        <div class="nav-links">
+            <a class="link" href="#features">Features</a>
+            <a class="btn-get" href="https://play.google.com/store/apps/details?id=dummy.link" target="_blank">Get the app</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div>
+        <h1>Log meals and workouts. Free and private.</h1>
+        <p>
+            Will Fitness helps you track calories, macros, weight and training.
+            No accounts, no subscription, no ads, and no selling your data!
+        </p>
+        <a class="btn-badge" href="https://play.google.com/store/apps/details?id=dummy.link" target="_blank">
+            <img src="assets/google-play-badge.jpg" alt="Get it on Google Play">
+        </a>
+    </div>
+
+    <div class="phone-shell">
+    <div class="carousel">
+        <div class="carousel-track" id="carouselTrack">
+            <img src="Assets/main_page.jpg" alt="Dashboard showing calories and macro progress">
+            <img src="Assets/active_workout.jpg" alt="Active workout session with tracked sets">
+            <img src="Assets/food_search.jpg" alt="Food search and barcode scan screen">
+            <img src="Assets/nutrition_summary.jpg" alt="Nutrition summary with weekly and monthly averages">
+            <img src="Assets/custom_macro_goals.jpg" alt="Custom macro goals editor">
+        </div>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+</div>
+</section>
+
+<section class="why">
+    <div class="why-inner">
+        <h2>Why Will Fitness?</h2>
+        <p>
+            When I wanted to get into shape, I downloaded the most popular
+            nutrition and workout tracking apps. They worked, but they were
+            all packed with ads, subscriptions, mandatory accounts, and a
+            data policy that sells whatever it can.
+        </p>
+        <p>
+            That irked me enough to build Will Fitness myself: an app that
+            exists solely to serve the person using it. Privacy and
+            simplicity come first, without giving up the features that make
+            the big apps useful. I've tried to match what the large fitness
+            apps offer without asking you to pay, sign up, or trade your
+            data for convenience.
+        </p>
+        <div class="why-sign">— William</div>
+    </div>
+</section>
+
+<section id="features" class="section">
+<h2 class="section-title">Everything you need. Nothing you don't.</h2>
+	<p class="section-subtitle">Full nutrition and workout tracking, without the bloat.</p>
+    <div class="flagship">
+
+       <div class="flagship-row">
+			<div class="flagship-text">
+				<h3>Nutrition tracking at a glance</h3>
+				<p>
+					Calories, protein, carbs, and fat update instantly as you log. Get a complete picture of your daily progress without digging through hidden menus.
+				</p>
+			</div>
+			<div class="flagship-media">
+				<div class="screenshot-frame">
+					<img src="Assets/main_page.jpg" alt="Today dashboard showing calories and macro progress">
+				</div>
+			</div>
+		</div>
+
+		<div class="flagship-row reverse">
+			<div class="flagship-text">
+				<h3>Track every set, beat every PR</h3>
+				    <p>
+					Log workouts instantly with built-in programs or custom routines. See your last lifted weight at a glance so you can push for progress every session.
+					</p>
+			</div>
+			<div class="flagship-media">
+				<div class="screenshot-frame">
+					<img src="Assets/active_workout.jpg" alt="Track your workouts and set new records">
+				</div>
+			</div>
+		</div>
+
+		<div class="flagship-row">
+			<div class="flagship-text">
+				<h3>Find your food in seconds</h3>
+				<p>
+					Access a database of over 3 million products via search or barcode scan. Save your frequent meals and favorites so logging takes just one tap.
+				</p>
+			</div>
+			<div class="flagship-media">
+				<div class="screenshot-frame">
+					<img src="Assets/food_search.jpg" alt="Food search and barcode scan screen">
+				</div>
+			</div>
+		</div>
+		
+		<div class="flagship-row reverse">
+		<div class="flagship-text">
+			<h3>Look beyond a single day</h3>
+			<p>
+				One good or bad day doesn't define your progress. View your averages across weeks, months, or years, and spot subtle trends like your highest-calorie days.
+			</p>
+		</div>
+		<div class="flagship-media">
+			<div class="screenshot-frame">
+				<img src="Assets/nutrition_summary.jpg" alt="Nutrition summary showing weekly and monthly averages">
+			</div>
+		</div>
+		</div>
+
+    </div>
+
+<section class="closing">
+    <h2>Get it here</h2>
+    <p>Free. No account tricks, no paywalled basics.</p>
+    <a class="btn-badge" href="https://play.google.com/store/apps/details?id=dummy.link" target="_blank">
+        <img src="assets/google-play-badge.jpg" alt="Get it on Google Play">
+    </a>
+</section>
+
+<footer>
+    <span>© <span id="year"></span> Will Fitness</span>
+    <span class="sep">·</span>
+    <a href="mailto:willfitnessapp@gmail.com">willfitnessapp@gmail.com</a>
+</footer>
+
+<script>
+const yearEl = document.getElementById('year');
+yearEl.textContent = new Date().getFullYear();
+
+/* Carousel logic  */
+const track = document.getElementById('carouselTrack');
+const slides = track.children;
+const dotsContainer = document.getElementById('carouselDots');
+let index = 0;
+let autoplayTimer = null;
+
+for (let i = 0; i < slides.length; i++) {
+    const dot = document.createElement('button');
+    if (i === 0) dot.classList.add('active');
+    dot.setAttribute('aria-label', 'Show screenshot ' + (i + 1));
+    dot.addEventListener('click', () => {
+        moveToSlide(i);
+        restartAutoplay(); // reset the timer so it doesn't fire right after a manual click
+    });
+    dotsContainer.appendChild(dot);
+}
+
+function moveToSlide(i) {
+    index = i;
+    track.style.transform = `translateX(-${i * 100}%)`;
+    [...dotsContainer.children].forEach(d => d.classList.remove('active'));
+    dotsContainer.children[i].classList.add('active');
+}
+
+function restartAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+    autoplayTimer = setInterval(() => {
+        moveToSlide((index + 1) % slides.length);
+    }, 8000);
+}
+
+restartAutoplay();
+</script>
+
+</body>
+</html>
